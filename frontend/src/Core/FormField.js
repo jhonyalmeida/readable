@@ -6,7 +6,9 @@ function renderField(type, props) {
             return (
                 <select name={props.name} onChange={props.onChange} className="form-control" >
                     {props.options.map(o => (
-                        <option value={o.id} key={o.id} >{o.label}</option>
+                        <option value={o.id} key={o.id} selected={props.value == o.id && 'selected'} >
+                            {o.label}
+                        </option>
                     ))}
                 </select>
             )

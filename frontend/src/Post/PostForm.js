@@ -9,13 +9,16 @@ class PostForm extends Component {
         super(props)
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
-        
         this.state = {
             title: '',
             body: '',
             author: '',
             category: null
         };
+    }
+
+    componentWillReceiveProps() {
+        this.setState({ category: this.props.categories[0].path })
     }
 
     onChange(event) {
@@ -56,7 +59,7 @@ class PostForm extends Component {
                     </div>
                     {linkCancel && 
                         <div className="form-group col-lg-2">
-                            <Link className="btn btn-block btn-default" to={linkCancel}>Cancel</Link>
+                            <Link className="btn btn-block btn-danger" to={linkCancel}>Cancel</Link>
                         </div>
                     }
                 </div>

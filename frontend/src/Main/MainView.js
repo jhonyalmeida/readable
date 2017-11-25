@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { listCategories, listPosts } from './../Core/actions'
 import Menubar from './Menubar'
 import Post from './../Post/Post'
+import './MainView.css'
 
 class MainView extends Component {
 
@@ -13,16 +15,22 @@ class MainView extends Component {
 
     render() {
         const posts = this.props.posts
-        if (posts.length > 0) {
-            return (
-                <div className="container">
-                    <Menubar categories={this.props.categories} />
-                    {posts.map(post => <Post key={post.id} post={post} />)}
+        return (
+            <div className="container">
+                <Menubar categories={this.props.categories} />
+                <div className="card-group">
+                    {posts.length > 0 
+                        ? posts.map(post => <Post key={post.id} post={post} showComments={false} />)
+                        : <div>Nenhum post cadastrado.</div>
+                    }
                 </div>
-            )
-        } else {
-            return <p>Nenhum post cadastrado.</p>
-        }
+                <div className="btn-add">
+                    <Link className="btn btn-default" to="/posts/new">
+                        <span className="fa fa-plus"></span>
+                    </Link>
+                </div>
+            </div>
+        )
     }
 
 }

@@ -18,7 +18,8 @@ function listPosts(category = null) {
 }
 
 function getPost(id) {
-
+    return fetch(`${SERVER_URL}/posts/${id}`, fetchConfig)
+        .then(res => res.json())
 }
 
 function createPost(post) {
@@ -31,7 +32,11 @@ function createPost(post) {
 }
 
 function editPost({id, title, body}) {
-
+    return fetch(`${SERVER_URL}/posts/${id}`, {
+        method: 'PUT',
+        body: {title, body},
+        ...fetchConfig
+    }).then(res => res.json());
 }
 
 function votePost(id, vote = 1) {
@@ -43,7 +48,10 @@ function votePost(id, vote = 1) {
 }
 
 function removePost(id) {
-
+    return fetch(`${SERVER_URL}/posts/${id}`, {
+        method: 'DELETE',
+        ...fetchConfig
+    }).then(res => res.json());
 }
 
 function listComments(parentId) {

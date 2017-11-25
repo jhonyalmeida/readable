@@ -8,7 +8,7 @@ export default (props) => {
                 <Link className="nav-link" to="/">All Posts</Link>
             </li>
             {props.categories.map(c => (
-                <li className="nav-item">
+                <li className="nav-item" key={c.name}>
                     <Link className="nav-link" to={`/${c.path}/posts`}>{c.name}</Link>
                 </li>
             ))}

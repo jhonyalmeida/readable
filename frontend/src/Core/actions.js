@@ -72,7 +72,7 @@ export function editPost(post, callback = () => {}) {
 
 export function removePost(post, callback = () => {}) {
     return (dispatch) => {
-        server.removePost(post).then(post => {
+        server.removePost(post.id).then(post => {
             dispatch({
                 type: REMOVE_POST,
                 payload: post
@@ -92,6 +92,10 @@ export function listComments(postId) {
 }
 
 export function createComment(comment, callback = () => {}) {
+
+}
+
+export function voteComment(comment, vote) {
 
 }
 
