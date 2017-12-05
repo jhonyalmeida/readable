@@ -17,8 +17,11 @@ class PostForm extends Component {
         };
     }
 
-    componentWillReceiveProps() {
-        this.setState({ category: this.props.categories[0].path })
+    componentDidMount() {
+        if (this.props.categories.length > 0) {
+            console.log('testing')
+            this.setState({ category: this.props.categories[0].path })
+        }
     }
 
     onChange(event) {

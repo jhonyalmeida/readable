@@ -5,6 +5,7 @@ export const START_REQUEST = 'START_REQUEST'
 export const LIST_CATEGORIES = 'LIST_CATEGORIES'
 
 export const LIST_POSTS = 'LIST_POSTS'
+export const GET_POST = 'GET_POST'
 export const CREATE_POST = 'CREATE_POST'
 export const EDIT_POST = 'EDIT_POST'
 export const REMOVE_POST = 'REMOVE_POST'
@@ -18,7 +19,6 @@ export const VOTE_COMMENT = 'VOTE_COMMENT'
 
 export function listCategories() {
     return (dispatch) => {
-        dispatch({ type: START_REQUEST })
         server.getCategories().then(res => dispatch({
             type: LIST_CATEGORIES,
             payload: res.categories
@@ -31,6 +31,15 @@ export function listPosts(category = null) {
         server.listPosts(category).then(posts => dispatch({
             type: LIST_POSTS,
             payload: posts
+        }))
+    }
+}
+
+export function getPost(id) {
+    return (dispatch) => {
+        server.getPost(id).then(post => dispatch({
+            type: GET_POST,
+            payload: post
         }))
     }
 }

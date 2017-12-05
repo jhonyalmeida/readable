@@ -18,6 +18,7 @@ const postsReducer = (state = [], action) => {
         case actions.LIST_POSTS:
             return action.payload.sort(sortByVote)
         case actions.CREATE_POST:
+        case actions.GET_POST:
             return [...state, action.payload].sort(sortByVote)
         case actions.EDIT_POST:
         case actions.VOTE_POST:

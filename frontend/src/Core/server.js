@@ -77,7 +77,7 @@ function removeComment(id) {
 
 export {
     getCategories,
-    listPosts, createPost, editPost, votePost, removePost,
+    listPosts, getPost, createPost, editPost, votePost, removePost,
     listComments, createComment, editComment, voteComment, removeComment
 }
 
