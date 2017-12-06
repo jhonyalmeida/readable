@@ -1,7 +1,5 @@
 import * as server from './server'
 
-export const START_REQUEST = 'START_REQUEST'
-
 export const LIST_CATEGORIES = 'LIST_CATEGORIES'
 
 export const LIST_POSTS = 'LIST_POSTS'
@@ -101,17 +99,48 @@ export function listComments(postId) {
 }
 
 export function createComment(comment, callback = () => {}) {
-
+    return (dispatch) => {
+        server.createComment(comment).then(comment => {
+            dispatch({
+                type: CREATE_COMMENT,
+                payload: comment
+            })
+            callback(comment)
+        })
+    }
 }
 
 export function voteComment(comment, vote) {
-
+    return (dispatch) => {
+        server.voteComment(comment.id, vote).then(comment => {
+            dispatch({
+                type: VOTE_COMMENT,
+                payload: comment
+            })
+        })
+    }
 }
 
 export function editComment(comment, callback = () => {}) {
-    
+    return (dispatch) => {
+        server.editComment(comment).then(comment => {
+            dispatch({
+                type: EDIT_COMMENT,
+                payload: comment
+            })
+            callback(comment)
+        })
+    }
 }
 
 export function removeComment(comment, callback = () => {}) {
-    
+    return (dispatch) => {
+        server.removeComment(comment.id).then(comment => {
+            dispatch({
+                type: REMOVE_COMMENT,
+                payload: comment
+            })
+            callback(comment)
+        })
+    }
 }

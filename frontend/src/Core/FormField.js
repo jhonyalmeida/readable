@@ -35,4 +35,4 @@ const FormField = (props) => {
     );
 }
 
-export default FormField;
+export default FormField

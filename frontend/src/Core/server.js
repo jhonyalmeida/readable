@@ -23,7 +23,6 @@ function getPost(id) {
 }
 
 function createPost(post) {
-    console.log(JSON.stringify(post))
     return fetch(`${SERVER_URL}/posts`, {
         method: 'POST',
         body: JSON.stringify(post),
@@ -60,19 +59,34 @@ function listComments(parentId) {
 }
 
 function createComment(comment) {
-
+    return fetch(`${SERVER_URL}/comments`, {
+        method: 'POST',
+        body: JSON.stringify(comment),
+        ...fetchConfig
+    }).then(res => res.json());
 }
 
 function editComment({id, body}) {
-    
+    return fetch(`${SERVER_URL}/comments/${id}`, {
+        method: 'PUT',
+        body: { body },
+        ...fetchConfig
+    }).then(res => res.json());
 }
 
-function voteComment(id) {
-
+function voteComment(id, vote = 1) {
+    return fetch(`${SERVER_URL}/comments/${id}`, {
+        method: 'POST',
+        body: JSON.stringify({option: vote == 1 ? 'upVote' : 'downVote'}),
+        ...fetchConfig
+    }).then(res => res.json());
 }
 
 function removeComment(id) {
-
+    return fetch(`${SERVER_URL}/comments/${id}`, {
+        method: 'DELETE',
+        ...fetchConfig
+    }).then(res => res.json());
 }
 
 export {
