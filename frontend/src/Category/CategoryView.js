@@ -5,23 +5,29 @@ import { listPosts } from './../Core/actions'
 import Post from './../Post/Post'
 import './CategoryView.css'
 
-class CategoryView extends Component {
+class CategoryView extends Component {  
 
-    componentWillReceiveProps() {
-        const category = this.props.match.params.category
-        this.props.listPosts(category)
+    componentDidMount() {
+        this.props.listPosts(this.props.match.params.category)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        const category = nextProps.match.params.category
+        if (category !== this.props.match.params.category) {
+            this.props.listPosts(category)
+        }
     }
 
     render() {
         const posts = this.props.posts
         return [
-            <div className="card-deck">
+            <div key="posts" className="card-deck">
                 {posts.length > 0 
                     ? posts.map(post => <Post key={post.id} post={post} showComments={true} />)
                     : <div>Nenhum post nesta categoria.</div>
                 }
             </div>,
-            <div className="btn-add">
+            <div key="addButton" className="btn-add">
                 <Link className="btn btn-default" to="/posts/new">
                     <span className="fa fa-plus"></span>
                 </Link>

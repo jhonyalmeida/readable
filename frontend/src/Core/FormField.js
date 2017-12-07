@@ -4,11 +4,9 @@ function renderField(type, props) {
     switch(type) {
         case 'select':
             return (
-                <select name={props.name} onChange={props.onChange} className="form-control" >
+                <select defaultValue={props.value} name={props.name} onChange={props.onChange} className="form-control" >
                     {props.options.map(o => (
-                        <option value={o.id} key={o.id} selected={props.value == o.id && 'selected'} >
-                            {o.label}
-                        </option>
+                        <option value={o.id} key={o.id}>{o.label}</option>
                     ))}
                 </select>
             )
@@ -22,9 +20,9 @@ function renderField(type, props) {
 }
 
 const FormField = (props) => {
-    const label = props.label;
-    const colSize = props.colSize || 6;
-    const field = renderField(props.type, props);
+    const label = props.label
+    const colSize = props.colSize || 6
+    const field = renderField(props.type, props)
     return (
         <div className="row">
             <div className={`form-group col-lg-${colSize}`}>

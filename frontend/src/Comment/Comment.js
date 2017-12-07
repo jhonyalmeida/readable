@@ -21,7 +21,7 @@ class Comment extends Component {
                 {comment.body}
                 {this.renderVotes()}
             </div>
-        );
+        )
     }
 
     renderVotes() {

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { listComments, votePost, removePost } from './../Core/actions'
+import { listComments, votePost, removePost, createComment } from './../Core/actions'
 import Comment from './../Comment/Comment'
+import CommentForm from './../Comment/CommentForm'
 import './Post.css'
 
 class Post extends Component {
@@ -63,6 +64,7 @@ class Post extends Component {
         return (
             <div>
                 {comments.map(c => <Comment key={c.id} comment={c} />)}
+                <CommentForm post={this.props.post} submit={this.props.createComment} />
             </div>
         )
     }
@@ -75,4 +77,6 @@ function mapStateToProps(state, ownProps) {
     }
 }
 
-export default connect(mapStateToProps, { listComments, votePost, removePost })(Post)
+export default connect(mapStateToProps, { 
+    listComments, votePost, removePost, createComment
+})(Post)

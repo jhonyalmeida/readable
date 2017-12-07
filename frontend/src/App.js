@@ -7,7 +7,6 @@ import Menubar from './Core/components/Menubar'
 import MainView from './Main/MainView'
 import CategoryView from './Category/CategoryView'
 import PostFormView from './Post/PostFormView'
-import Post from './Post/Post'
 
 class App extends Component {
 

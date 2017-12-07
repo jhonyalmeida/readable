@@ -14,13 +14,13 @@ class MainView extends Component {
     render() {
         const posts = this.props.posts
         return [
-            <div className="card-deck">
+            <div key="posts" className="card-deck">
                 {posts.length > 0 
                     ? posts.map(post => <Post key={post.id} post={post} showComments={false} />)
                     : <div>Nenhum post cadastrado.</div>
                 }
             </div>,
-            <div className="btn-add">
+            <div key="addButton" className="btn-add">
                 <Link className="btn btn-default" to="/posts/new">
                     <span className="fa fa-plus"></span>
                 </Link>
