@@ -1,22 +1,15 @@
-# Readable API Server
+# Projeto Readable
 
-This is the starter project for the final assessment project for Udacity's Redux course where you will build a content and comment web app. Users will be able to post content to predefined categories, comment on their posts and other users' posts, and vote on posts and comments. Users will also be able to edit and delete posts and comments.
+Sistema de postagens simples, em que é possível criar postagens e votar positivamente ou negativamente em cada uma, listá-las por categoria, e filtrá-las por quantidade de votos ou por mais recentes. Também é possível adicionar comentários às postagens e votar neles. As categorias possíveis para as postagens são pré-definidas no servidor, para alterá-las, deve-se editar o arquivo categories.js na pasta api-server.
 
-This repository includes the code for the backend API Server that you'll use to develop and interact with the front-end portion of the project.
+O sistema é constituído por um servidor e um frontend, ambos implementados em JavaScript. O frontend é baseado em React e utiliza também as bibliotecas Redux para gerência de estado, e React-Router para navegação entre as telas.
 
-## Start Developing
+## Instalação
 
-To get started developing right away:
+Ambos servidor e frontend, localizados respectivamente nas pastas api-server e frontend, devem ter suas dependências instaladas usando npm install ou yarn install.
 
-* Install and start the API server
-    - `cd api-server`
-    - `npm install`
-    - `node server`
-* In another terminal window, use Create React App to scaffold out the front-end
-    - `create-react-app frontend`
-    - `cd frontend`
-    - `npm start`
+O servidor utiliza a porta 3001 e pode ser iniciado com o comando npm start.
 
-## API Server
+O frontend foi criado usando o comando create-react-app, e pode ser iniciado em modo de desenvolvimento na porta 3000, com o comando npm start ou yarn start.
 
-Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+
