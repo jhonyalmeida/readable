@@ -12,8 +12,12 @@
     margin-bottom: 1.5em;
 }
 
-.close-btn {
+.upper-buttons {
     position: absolute;
     top: 0.1em;
     right: 0.1em;
+}
+
+.upper-buttons a {
+    padding: 0.2em;
 }

@@ -10,6 +10,7 @@ export const REMOVE_POST = 'REMOVE_POST'
 export const VOTE_POST = 'VOTE_POST'
 
 export const LIST_COMMENTS = 'LIST_COMMENTS'
+export const GET_COMMENT = 'GET_COMMENT'
 export const CREATE_COMMENT = 'CREATE_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
 export const REMOVE_COMMENT = 'REMOVE_COMMENT'
@@ -94,6 +95,15 @@ export function listComments(postId) {
         server.listComments(postId).then(comments => dispatch({
             type: LIST_COMMENTS,
             payload: { parentId: postId, comments }
+        }))
+    }
+}
+
+export function getComment(id) {
+    return (dispatch) => {
+        server.getComment(id).then(comment => dispatch({
+            type: GET_COMMENT,
+            payload: comment
         }))
     }
 }

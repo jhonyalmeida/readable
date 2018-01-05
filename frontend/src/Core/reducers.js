@@ -37,7 +37,8 @@ const commentsReducer = (state = {}, action) => {
         case actions.LIST_COMMENTS:
             return { ...state, [payload.parentId]: sortByVote(payload.comments) }
         case actions.CREATE_COMMENT:
-            otherComments = state[payload.parentId]
+        case actions.GET_COMMENT:
+            otherComments = state[payload.parentId] || []
             return { ...state, [payload.parentId]: sortByVote([ ...otherComments, payload ]) }
         case actions.EDIT_COMMENT:
         case actions.VOTE_COMMENT:

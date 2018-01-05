@@ -30,10 +30,10 @@ function createPost(post) {
     }).then(res => res.json())
 }
 
-function editPost({id, title, body}) {
+function editPost({ id, title, body }) {
     return fetch(`${SERVER_URL}/posts/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({title, body}),
+        body: JSON.stringify({ title, body }),
         ...fetchConfig
     }).then(res => res.json())
 }
@@ -58,6 +58,11 @@ function listComments(parentId) {
         .then(res => res.json())
 }
 
+function getComment(id) {
+    return fetch(`${SERVER_URL}/comments/${id}`, fetchConfig)
+        .then(res => res.json())
+}
+
 function createComment(comment) {
     return fetch(`${SERVER_URL}/comments`, {
         method: 'POST',
@@ -66,10 +71,10 @@ function createComment(comment) {
     }).then(res => res.json())
 }
 
-function editComment({id, body}) {
+function editComment({ id, body }) {
     return fetch(`${SERVER_URL}/comments/${id}`, {
         method: 'PUT',
-        body: { body },
+        body: JSON.stringify({ body }),
         ...fetchConfig
     }).then(res => res.json())
 }
@@ -92,6 +97,6 @@ function removeComment(id) {
 export {
     getCategories,
     listPosts, getPost, createPost, editPost, votePost, removePost,
-    listComments, createComment, editComment, voteComment, removeComment
+    listComments, getComment, createComment, editComment, voteComment, removeComment
 }
 

@@ -9,9 +9,24 @@ class CommentForm extends Component {
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
         this.state = {
+            id: this.generateKey(), 
+            timestamp: Date.now(),
             body: '',
-            author: ''
+            author: '',
+            parentId: this.props.post ? this.props.post.id : null
         };
+    }
+
+    componentDidMount() {
+        if (this.props.comment) {
+            this.setState(this.props.comment)
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.comment) {
+            this.setState(nextProps.comment)
+        }
     }
 
     onChange(event) {
@@ -21,12 +36,7 @@ class CommentForm extends Component {
 
     onSubmit(event) {
         event.preventDefault()
-        this.props.submit({
-            id: this.generateKey(), 
-            timestamp: Date.now(),
-            parentId: this.props.post.id,
-            ...this.state
-        })
+        this.props.submit(this.state)
     }
 
     generateKey() {   
@@ -39,10 +49,12 @@ class CommentForm extends Component {
     }
 
     render() {
+        const comment = this.state
         return (
             <form onSubmit={this.onSubmit} >
-                <FormField name="author" label="Author" type="text" onChange={this.onChange} />
-                <FormField name="body" label="Body" type="textarea" onChange={this.onChange} />
+                <FormField name="author" value={comment.author} label="Author" type="text" 
+                           onChange={this.onChange} disabled={comment.voteScore} />
+                <FormField name="body" value={comment.body} label="Body" type="textarea" onChange={this.onChange} />
                 <div className="row">
                     <div className="form-group col-lg-2">
                         <button type="submit" className="btn btn-block btn-primary">Save</button>
@@ -55,7 +67,8 @@ class CommentForm extends Component {
 }
 
 CommentForm.propTypes = {
-    post: PropTypes.object.isRequired,
+    comment: PropTypes.object,
+    post: PropTypes.object,
     submit: PropTypes.func.isRequired
 }
 

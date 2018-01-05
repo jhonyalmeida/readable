@@ -76,7 +76,9 @@ class Post extends Component {
         return (
             <div>
                 {comments.map(c => <Comment key={c.id} comment={c} />)}
-                <CommentForm post={this.props.post} submit={this.props.createComment} />
+                <div style={{maxWidth: '50%'}}> 
+                    <CommentForm post={this.props.post} submit={this.props.createComment} />
+                </div>
             </div>
         )
     }

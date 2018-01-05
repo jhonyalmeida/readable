@@ -20,8 +20,12 @@ class PostForm extends Component {
     }
 
     componentDidMount() {
-        if (this.props.post) {
-            this.setState(this.props.post)
+        const props = this.props
+        if (props.categories.length > 0) {
+            this.setState({ category: props.categories[0].path })
+        }
+        if (props.post) {
+            this.setState(props.post)
         }
     }
 

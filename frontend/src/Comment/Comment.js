@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 import './Comment.css'
 import { voteComment, removeComment } from './../Core/actions'
@@ -12,10 +13,13 @@ class Comment extends Component {
         const removeComment = this.props.removeComment.bind(this)
         return (
             <div className="alert alert-secondary">
-                <div className="close-btn">
-                    <button type="button" className="btn btn-link" onClick={() => removeComment(comment)}>
+                <div className="upper-buttons">
+                    <Link to={`/posts/${comment.parentId}/comments/${comment.id}/edit`}>
+                        <span className="fa fa-edit"></span>
+                    </Link>
+                    <a href="#" onClick={removeComment}>
                         <span className="fa fa-close"></span>
-                    </button>
+                    </a>
                 </div>
                 <strong>At {date.format('LLL')}, {comment.author} says: </strong>
                 {comment.body}

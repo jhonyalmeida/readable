@@ -8,6 +8,7 @@ import MainView from './Main/MainView'
 import CategoryView from './Category/CategoryView'
 import PostView from './Post/PostView'
 import PostFormView from './Post/PostFormView'
+import CommentFormView from './Comment/CommentFormView'
 
 class App extends Component {
 
@@ -26,6 +27,7 @@ class App extends Component {
             <Route exact path="/posts/:post" component={PostView} />
             <Route path="/posts/:post/edit" 
                    render={() => <PostFormView categories={this.props.categories} />} />
+            <Route path="/posts/:post/comments/:comment/edit" component={CommentFormView} />
             <Route path="/:category/posts" component={CategoryView} />
           </Switch>
         </div>
