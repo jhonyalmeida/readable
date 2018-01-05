@@ -10,6 +10,8 @@ class PostForm extends Component {
         this.onChange = this.onChange.bind(this)
         this.onSubmit = this.onSubmit.bind(this)
         this.state = {
+            id: this.generateKey(), 
+            timestamp: Date.now(),
             title: '',
             body: '',
             author: '',
@@ -18,8 +20,17 @@ class PostForm extends Component {
     }
 
     componentDidMount() {
-        if (this.props.categories.length > 0) {
-            this.setState({ category: this.props.categories[0].path })
+        if (this.props.post) {
+            this.setState(this.props.post)
+        }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.categories.length > 0) {
+            this.setState({ category: nextProps.categories[0].path })
+        }
+        if (nextProps.post) {
+            this.setState(nextProps.post)
         }
     }
 
@@ -30,11 +41,7 @@ class PostForm extends Component {
 
     onSubmit(event) {
         event.preventDefault()
-        this.props.submit({
-            id: this.generateKey(), 
-            timestamp: Date.now(),
-            ...this.state
-        })
+        this.props.submit(this.state)
     }
 
     generateKey() {   
@@ -47,31 +54,41 @@ class PostForm extends Component {
     }
 
     render() {
+        const post = this.state
         const categories = this.props.categories.map(c => ({id: c.path, label: c.name}))
-        const linkCancel = this.props.cancelLink
         return (
             <form onSubmit={this.onSubmit} >
-                <FormField name="title" label="Title" type="text" onChange={this.onChange} />
-                <FormField name="author" label="Author" type="text" onChange={this.onChange} />
-                <FormField name="body" label="Body" type="textarea" onChange={this.onChange} />
-                <FormField name="category" label="Category" type="select" options={categories} onChange={this.onChange} />
-                <div className="row">
-                    <div className="form-group col-lg-2">
-                        <button type="submit" className="btn btn-block btn-primary">Save</button>
-                    </div>
-                    {linkCancel && 
-                        <div className="form-group col-lg-2">
-                            <Link className="btn btn-block btn-danger" to={linkCancel}>Cancel</Link>
-                        </div>
-                    }
-                </div>
+                <FormField name="title" value={post.title} label="Title" type="text" onChange={this.onChange} />
+                <FormField name="author" value={post.author} label="Author" type="text" 
+                           onChange={this.onChange} disabled={post.voteScore} />
+                <FormField name="body" value={post.body} label="Body" type="textarea" onChange={this.onChange} />
+                <FormField name="category" value={post.category} label="Category" type="select" 
+                           options={categories} onChange={this.onChange} disabled={post.voteScore} />
+                {this.renderCommands()}
             </form>
         );
+    }
+
+    renderCommands() {
+        const linkCancel = this.props.cancelLink
+        return (
+            <div className="row">
+                <div className="form-group col-lg-2">
+                    <button type="submit" className="btn btn-block btn-primary">Save</button>
+                </div>
+                {linkCancel && 
+                    <div className="form-group col-lg-2">
+                        <Link className="btn btn-block btn-danger" to={linkCancel}>Cancel</Link>
+                    </div>
+                }
+            </div>
+        )
     }
 
 }
 
 PostForm.propTypes = {
+    post: PropTypes.object,
     categories: PropTypes.array.isRequired,
     submit: PropTypes.func.isRequired,
     cancelLink: PropTypes.string

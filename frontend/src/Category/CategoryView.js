@@ -30,25 +30,27 @@ class CategoryView extends Component {
 
     render() {
         const posts = this.props.posts
-        return [
-            <div>
-                <select className="form-control" onChange = {this.onChange.bind(this)}>
-                    <option value="voteScore">Most voted</option>
-                    <option value="timestamp">Most recent</option>
-                </select>
-            </div>,
-            <div key="posts" className="card-deck">
-                {posts.length > 0 
-                    ? posts.map(post => <Post key={post.id} post={post} showComments={false} />)
-                    : <div>Nenhum post cadastrado.</div>
-                }
-            </div>,
-            <div key="addButton" className="btn-add">
-                <Link className="btn btn-default" to="/posts/new">
-                    <span className="fa fa-plus"></span>
-                </Link>
+        return (
+            <div style={{marginTop: '1.1em'}}>
+                <div>
+                    <select className="form-control" onChange = {this.onChange.bind(this)}>
+                        <option key="1" value="voteScore">Most voted</option>
+                        <option key="2" value="timestamp">Most recent</option>
+                    </select>
+                </div>
+                <div key="posts" className="card-deck">
+                    {posts.length > 0 
+                        ? posts.map(post => <Post key={post.id} post={post} showComments={false} />)
+                        : <div>Nenhum post cadastrado.</div>
+                    }
+                </div>
+                <div key="addButton" className="btn-add">
+                    <Link className="btn btn-default" to="/posts/new">
+                        <span className="fa fa-plus"></span>
+                    </Link>
+                </div>
             </div>
-        ]
+        )
     }
 
 }

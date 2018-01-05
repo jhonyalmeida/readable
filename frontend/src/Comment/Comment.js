@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import moment from 'moment'
 import './Comment.css'
 import { voteComment, removeComment } from './../Core/actions'
 
@@ -7,8 +8,7 @@ class Comment extends Component {
 
     render() {
         const comment = this.props.comment
-        const date = new Date(comment.timestamp)
-        const dateString = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
+        const date = moment(comment.timestamp)
         const removeComment = this.props.removeComment.bind(this)
         return (
             <div className="alert alert-secondary">
@@ -17,7 +17,7 @@ class Comment extends Component {
                         <span className="fa fa-close"></span>
                     </button>
                 </div>
-                <strong>At {dateString}, {comment.author} says: </strong>
+                <strong>At {date.format('LLL')}, {comment.author} says: </strong>
                 {comment.body}
                 {this.renderVotes()}
             </div>

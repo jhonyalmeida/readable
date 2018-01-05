@@ -1,6 +1,6 @@
 .btn-add {
     position: fixed;
-    right: 25px;
+    right: 15px;
     bottom: 25px;
 }
 
@@ -13,4 +13,5 @@
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
     text-align: center;
     vertical-align: center;
+    z-index: 99999 !important;
 }

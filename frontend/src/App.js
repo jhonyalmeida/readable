@@ -23,7 +23,9 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={MainView} />
             <Route path="/posts/new" render={() => <PostFormView categories={this.props.categories} />} />
-            <Route path="/posts/:post" component={PostView} />
+            <Route exact path="/posts/:post" component={PostView} />
+            <Route path="/posts/:post/edit" 
+                   render={() => <PostFormView categories={this.props.categories} />} />
             <Route path="/:category/posts" component={CategoryView} />
           </Switch>
         </div>

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 import { listComments, votePost, removePost, createComment } from './../Core/actions'
 import Comment from './../Comment/Comment'
 import CommentForm from './../Comment/CommentForm'
@@ -14,7 +15,8 @@ class Post extends Component {
         }
     }
 
-    removePost() {
+    removePost(event) {
+        event.preventDefault()
         const post = this.props.post
         const onRemove = this.props.onRemove || (() => {})
         this.props.removePost(post, onRemove())
@@ -22,21 +24,24 @@ class Post extends Component {
 
     render() {
         const post = this.props.post
-        const date = new Date(post.timestamp)
+        const date = moment(post.timestamp)
         const removePost = this.props.removePost.bind(this)
         return (
             <div className="card">
                 <div className="card-body">
-                    <div className="close-btn">
-                        <button type="button" className="btn btn-link" onClick={this.removePost.bind(this)}>
+                    <div className="upper-buttons">
+                        <Link to={`/posts/${post.id}/edit`}>
+                            <span className="fa fa-edit"></span>
+                        </Link>
+                        <a href="#" onClick={this.removePost.bind(this)}>
                             <span className="fa fa-close"></span>
-                        </button>
+                        </a>
                     </div>
                     <h4 className="card-title">
                         <Link to={`/posts/${post.id}`}>{post.title}</Link>
                     </h4>
                     <h6 className="card-subtitle mb-2 text-muted">
-                        By {post.author} at {`${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`}
+                        By {post.author} at {date.format('LLL')}
                     </h6>
                     <p className="card-text">{post.body}</p>
                     {this.renderVotes()}

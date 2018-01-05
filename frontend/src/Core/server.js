@@ -33,7 +33,7 @@ function createPost(post) {
 function editPost({id, title, body}) {
     return fetch(`${SERVER_URL}/posts/${id}`, {
         method: 'PUT',
-        body: {title, body},
+        body: JSON.stringify({title, body}),
         ...fetchConfig
     }).then(res => res.json())
 }
