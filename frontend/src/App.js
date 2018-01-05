@@ -6,6 +6,7 @@ import { listCategories } from './Core/actions'
 import Menubar from './Core/components/Menubar'
 import MainView from './Main/MainView'
 import CategoryView from './Category/CategoryView'
+import PostView from './Post/PostView'
 import PostFormView from './Post/PostFormView'
 
 class App extends Component {
@@ -22,6 +23,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={MainView} />
             <Route path="/posts/new" render={() => <PostFormView categories={this.props.categories} />} />
+            <Route path="/posts/:post" component={PostView} />
             <Route path="/:category/posts" component={CategoryView} />
           </Switch>
         </div>

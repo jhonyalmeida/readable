@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import FormField from './../Core/FormField'
+import FormField from './../Core/components/FormField'
 
 class PostForm extends Component {
 
@@ -19,7 +19,6 @@ class PostForm extends Component {
 
     componentDidMount() {
         if (this.props.categories.length > 0) {
-            console.log('testing')
             this.setState({ category: this.props.categories[0].path })
         }
     }

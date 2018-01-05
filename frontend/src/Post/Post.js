@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import { listComments, votePost, removePost, createComment } from './../Core/actions'
 import Comment from './../Comment/Comment'
 import CommentForm from './../Comment/CommentForm'
@@ -13,6 +14,12 @@ class Post extends Component {
         }
     }
 
+    removePost() {
+        const post = this.props.post
+        const onRemove = this.props.onRemove || (() => {})
+        this.props.removePost(post, onRemove())
+    }
+
     render() {
         const post = this.props.post
         const date = new Date(post.timestamp)
@@ -21,12 +28,12 @@ class Post extends Component {
             <div className="card">
                 <div className="card-body">
                     <div className="close-btn">
-                        <button type="button" className="btn btn-link" onClick={() => removePost(post)}>
+                        <button type="button" className="btn btn-link" onClick={this.removePost.bind(this)}>
                             <span className="fa fa-close"></span>
                         </button>
                     </div>
                     <h4 className="card-title">
-                        {post.title}
+                        <Link to={`/posts/${post.id}`}>{post.title}</Link>
                     </h4>
                     <h6 className="card-subtitle mb-2 text-muted">
                         By {post.author} at {`${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()}`}

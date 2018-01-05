@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import FormField from './../Core/FormField'
+import FormField from './../Core/components/FormField'
 
 class CommentForm extends Component {
 

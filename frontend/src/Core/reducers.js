@@ -1,10 +1,6 @@
 import { combineReducers } from 'redux'
 import * as actions from './actions'
 
-function sortByVote(itens) {
-    return itens.sort((a, b) => b.voteScore - a.voteScore)
-}
-
 const categoriesReducer = (state = [], action) => {
     switch(action.type) {
         case actions.LIST_CATEGORIES:
@@ -17,15 +13,15 @@ const categoriesReducer = (state = [], action) => {
 const postsReducer = (state = [], action) => {
     switch(action.type) {
         case actions.LIST_POSTS:
-            return sortByVote(action.payload)
+            return action.payload
         case actions.CREATE_POST:
         case actions.GET_POST:
-            return sortByVote([...state, action.payload])
+            return [...state, action.payload]
         case actions.EDIT_POST:
         case actions.VOTE_POST:
             const post = action.payload
             const otherPosts = state.filter(p => p.id !== post.id)
-            return sortByVote([...otherPosts, post])
+            return [...otherPosts, post]
         case actions.REMOVE_POST:
             return state.filter(p => p.id !== action.payload.id)
         default:
@@ -35,6 +31,7 @@ const postsReducer = (state = [], action) => {
 
 const commentsReducer = (state = {}, action) => {
     const payload = action.payload
+    const sortByVote = itens => itens.sort((a, b) => b.voteScore - a.voteScore)
     let otherComments = []
     switch(action.type) {
         case actions.LIST_COMMENTS:

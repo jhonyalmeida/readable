@@ -9,22 +9,38 @@ class CategoryView extends Component {
 
     componentDidMount() {
         this.props.listPosts(this.props.match.params.category)
+        this.state = {orderBy: 'voteScore'}
     }
 
     componentWillReceiveProps(nextProps) {
+        const orderBy = this.state ? this.state.orderBy : 'voteScore'
+        nextProps.posts.sort((a, b) => b[orderBy] - a[orderBy])
+
         const category = nextProps.match.params.category
         if (category !== this.props.match.params.category) {
             this.props.listPosts(category)
         }
     }
 
+    onChange(event) {
+        const value = event.target.value
+        this.setState({orderBy: value})
+        this.props.posts.sort((a, b) => b[value] - a[value])
+    }
+
     render() {
         const posts = this.props.posts
         return [
+            <div>
+                <select className="form-control" onChange = {this.onChange.bind(this)}>
+                    <option value="voteScore">Most voted</option>
+                    <option value="timestamp">Most recent</option>
+                </select>
+            </div>,
             <div key="posts" className="card-deck">
                 {posts.length > 0 
-                    ? posts.map(post => <Post key={post.id} post={post} showComments={true} />)
-                    : <div>Nenhum post nesta categoria.</div>
+                    ? posts.map(post => <Post key={post.id} post={post} showComments={false} />)
+                    : <div>Nenhum post cadastrado.</div>
                 }
             </div>,
             <div key="addButton" className="btn-add">
