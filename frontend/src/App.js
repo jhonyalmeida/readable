@@ -24,11 +24,10 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={MainView} />
             <Route path="/posts/new" render={() => <PostFormView categories={this.props.categories} />} />
-            <Route exact path="/posts/:post" component={PostView} />
-            <Route path="/posts/:post/edit" 
-                   render={() => <PostFormView categories={this.props.categories} />} />
+            <Route path="/posts/:post/edit" render={() => <PostFormView categories={this.props.categories} />} />
             <Route path="/posts/:post/comments/:comment/edit" component={CommentFormView} />
-            <Route path="/:category/posts" component={CategoryView} />
+            <Route exact path="/:category" component={CategoryView} />
+            <Route path="/:category/:post" component={PostView} />
           </Switch>
         </div>
       </BrowserRouter>

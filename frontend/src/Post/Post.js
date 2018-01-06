@@ -10,9 +10,7 @@ import './Post.css'
 class Post extends Component {
 
     componentDidMount() {
-        if (this.props.showComments) {
-            this.props.listComments(this.props.post.id)
-        }
+        this.props.listComments(this.props.post.id)
     }
 
     removePost(event) {
@@ -26,6 +24,7 @@ class Post extends Component {
         const post = this.props.post
         const date = moment(post.timestamp)
         const removePost = this.props.removePost.bind(this)
+        const comments = this.props.comments || []
         return (
             <div className="card">
                 <div className="card-body">
@@ -38,12 +37,13 @@ class Post extends Component {
                         </a>
                     </div>
                     <h4 className="card-title">
-                        <Link to={`/posts/${post.id}`}>{post.title}</Link>
+                        <Link to={`/${post.category}/${post.id}`}>{post.title}</Link>
                     </h4>
                     <h6 className="card-subtitle mb-2 text-muted">
                         By {post.author} at {date.format('LLL')}
                     </h6>
                     <p className="card-text">{post.body}</p>
+                    <em>{comments.length} comments</em>
                     {this.renderVotes()}
                     {this.props.showComments && this.renderComments()}
                 </div>

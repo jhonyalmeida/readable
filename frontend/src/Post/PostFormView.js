@@ -22,7 +22,7 @@ class PostFormView extends Component {
     submit(post) {
         const save = post.voteScore ? this.props.editPost : this.props.createPost
         save(post, p => {
-            this.props.history.push(`/${p.category}/posts`)
+            this.props.history.push(`/${p.category}`)
         });
     }
 

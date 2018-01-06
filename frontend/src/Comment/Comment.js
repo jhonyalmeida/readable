@@ -7,10 +7,15 @@ import { voteComment, removeComment } from './../Core/actions'
 
 class Comment extends Component {
 
+    removeComment(event) {
+        event.preventDefault()
+        this.props.removeComment(this.props.comment)
+    }
+
     render() {
         const comment = this.props.comment
         const date = moment(comment.timestamp)
-        const removeComment = this.props.removeComment.bind(this)
+        const removeComment = this.removeComment.bind(this)
         return (
             <div className="alert alert-secondary">
                 <div className="upper-buttons">
